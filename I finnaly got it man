@@ -1,0 +1,83 @@
+-- Define the main table for Fruit Stealer
+local FruitStealer = {}
+
+-- Initialize function to run when the script is loaded
+function FruitStealer:init()
+  -- Define local variables
+  local player = game.Players.LocalPlayer
+  local character = player.Character or player.CharacterAdded:Wait()
+  local hum = character:WaitForChild("Humanoid")
+  local gui = Instance.new("ScreenGui")
+  gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+  -- Function to check if the player is in a specific area
+  local function isInStealingArea()
+    -- Define the specific area coordinates here
+    local areaX = 100
+    local areaZ = 100
+    local charPos = character.HumanoidRootPart.Position
+    if math.abs(charPos.X - areaX) < 10 and math.abs(charPos.Z - areaZ) < 10 then
+      return true
+    else
+      return false
+    end
+  end
+
+  -- Function to steal fruit from another player
+  local function stealFruit(targetPlayer)
+    if not targetPlayer then
+      print("No player selected.")
+      return
+    end
+
+    -- Check if the player is in the stealing area and not in combat
+    if not (isInStealingArea() and not targetPlayer.Character.Humanoid.InAir and not hum.InAir) then
+      notifyUser("Failed to steal fruit: Player is in combat or not in the area.")
+      return
+    end
+
+    -- Logic to steal the fruit
+    -- For simplicity, just print a message for now
+    print("Successfully stolen fruit from " .. targetPlayer.Name)
+    notifyUser("Successfully stolen fruit from " .. targetPlayer.Name)
+  end
+
+  -- Function to notify the user
+  local function notifyUser(text)
+    -- Create a new notification
+    local notif = Instance.new("TextLabel")
+    notif.Size = UDim2.new(0, 200, 0, 50)
+    notif.Position = UDim2.new(0.5, -100, 0, 0)
+    notif.BackgroundColor3 = Color3.new(0, 0, 0)
+    notif.TextColor3 = Color3.new(1, 1, 1)
+    notif.Text = text
+    notif.Parent = gui
+
+    -- Automatically remove the notification after a few seconds
+    delay(3, function()
+      notif:Destroy()
+    end)
+  end
+
+  -- Set up the UI elements
+  local mainFrame = Instance.new("Frame")
+  mainFrame.Size = UDim2.new(0, 200, 0, 100)
+  mainFrame.Position = UDim2.new(0, 10, 0, 10)
+  mainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+  mainFrame.Parent = gui
+
+  local stealButton = Instance.new("TextButton")
+  stealButton.Size = UDim2.new(0, 180, 0, 50)
+  stealButton.Position = UDim2.new(0, 10, 0, 10)
+  stealButton.Text = "Steal Fruit"
+  stealButton.Parent = mainFrame
+
+  stealButton.MouseButton1Click:Connect(function()
+    -- Select a target player (this is just a placeholder, you need to implement the logic to select a target player)
+    local targetPlayer = game.Players:GetPlayers()[2] -- Example: select the second player in the list
+    stealFruit(targetPlayer)
+  end)
+end
+
+-- Initialize the Fruit Stealer script
+FruitStealer:init()
