@@ -1,0 +1,74 @@
+-- Define the main table for Jay's Hub
+local JayHub = {}
+JayHub.config = {
+  -- Configuration settings for the UI
+  ui = {
+    colors = {
+      -- Set default colors for the UI elements
+      background = Color3.fromRGB(255, 255, 255),
+      buttons = Color3.fromRGB(100, 100, 100),
+    },
+    themes = {
+      -- Define some themes for the UI
+      light = {
+        background = Color3.fromRGB(255, 255, 255),
+        buttons = Color3.fromRGB(100, 100, 100),
+      },
+      dark = {
+        background = Color3.fromRGB(0, 0, 0),
+        buttons = Color3.fromRGB(50, 50, 50),
+      },
+    },
+  },
+  fruits = {
+    -- List of fruits that can be stolen
+    "Rocket",
+    "Spin",
+    "Chop",
+    "Spring",
+    "Bomb",
+    "Smoke",
+    "Spike",
+    "Flame",
+    "Falcon",
+    "Ice",
+    "Sand",
+    "Dark",
+    "Diamond",
+    "Light",
+    "Rubber",
+    "Barrier",
+    "Ghost",
+    "Magma",
+    "Quake",
+    "Buddha",
+    "Love",
+    "Spider",
+    "Sound",
+    "Phoenix",
+    "Portal",
+    "Rumble",
+    "Pain",
+    "Blizzard",
+    "Gravity",
+    "Mammoth",
+    "T-Rex",
+    "Dough",
+    "Shadow",
+    "Venom",
+    "Control",
+    "Gas",
+    "Spirit",
+    "Leopard",
+    "Yeti",
+    "Kitsune",
+    "Dragon",
+  },
+}
+
+-- Function to create a button
+function JayHub:createButton(parent, text, callback)
+  local button = Instance.new("TextButton")
+  button.Size = UDim2.new(0, 200, 0, 50)
+  button.Font = Enum.Font.SourceSansSemibold
+  button.FontSize = Enum.Font
